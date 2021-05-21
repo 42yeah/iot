@@ -1,0 +1,335 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.ui {
+    display: grid;
+    grid-template-columns: 250px auto;
+    height: 100vh;
+    overflow: scroll;
+}
+
+.sidebar {
+    background-color: rgb(4, 29, 53);
+    color: white;
+}
+
+.title {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:rgb(17, 78, 134);
+    text-decoration: none;
+    color: white;
+}
+
+.user-info {
+    border: 1px solid #aaaaaa33;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-info-inner {
+    text-align: center;
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 100%;
+    border: 1px solid #aaaaaaaa;
+    user-select: none;
+}
+
+.username {
+    margin-top: 10px;
+}
+
+.inline-button {
+    display: inline-block;
+    background-color: rgb(0, 132, 255);
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+    user-select: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.inline-button:hover {
+    background-color: rgb(0, 69, 134);
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.heading {
+    height: 50px;
+    border-bottom: 1px solid #aaaaaaaa;
+    color: #333;
+    font-weight: bold;
+    display: grid;
+    grid-template-columns: auto auto;
+    position: sticky;
+    left: 0;
+    top: 0;
+    background-color: white;
+}
+
+.project-title {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 10px;
+}
+
+.toolbar-button {
+    border-top: 1px solid #aaaaaaaa;
+    border-bottom: 1px solid #aaaaaaaa;
+    padding: 5px;
+}
+
+.toolbar-button:first-of-type {    
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 1px solid #aaaaaaaa;
+    border-right: 0;
+}
+
+.toolbar-button:not(:last-of-type) {
+    border-right: 1px solid #aaaaaaaa;
+}
+
+.toolbar-button:last-of-type {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 1px solid #aaaaaaaa;
+    border-left: 0;
+}
+
+.toolbar-button:hover {
+    background-color: #aaaaaa55;
+}
+
+.menu-item {
+    padding: 10px 20px;
+    transition: 0.5s all;
+    cursor: pointer;
+}
+
+.menu-item:hover, .active {
+    background-color: rgb(43, 148, 253);
+}
+
+.drop-down {
+    float: right;
+}
+
+.id1 {
+    padding-left: 50px;
+}
+
+.folder {
+    max-height: 0;
+    overflow: hidden;
+}
+
+.opened {
+    max-height: unset;
+}
+
+.rotate {
+    transition: 0.5s all;
+    transform: rotate(-90deg);
+}
+
+.right {
+    transform: rotate(0);
+}
+
+.stuffs {
+    padding: 10px;
+}
+
+.content {
+    overflow: scroll;
+    background-color: #fafafa;
+}
+
+.pane {
+    border: 1px solid #eee;
+    padding: 10px;
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+.overview-data-view {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin-top: 10px;
+}
+
+.overview-data {
+    height: 100px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4px;
+}
+
+.overview-data::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5px;
+    height: 100%;
+    content: " ";
+}
+
+.success {
+    border: 1px solid rgb(3, 133, 20);
+}
+
+.success::before {
+    background-color: rgb(3, 133, 20);
+}
+
+.success > .ta-center > h4 {
+    color: rgb(3, 133, 20);
+}
+
+.warning {
+    border: 1px solid rgb(155, 85, 28);
+}
+
+.warning::before {
+    background-color: rgb(155, 85, 28);
+}
+
+.warning > .ta-center > h4 {
+    color: rgb(155, 85, 28);
+}
+
+.error {
+    border: 1px solid rgb(155, 28, 28);
+}
+
+.error::before {
+    background-color: rgb(155, 28, 28);
+}
+
+.error > .ta-center > h4 {
+    color: rgb(155, 28, 28);
+}
+
+.ta-center {
+    text-align: center;
+}
+
+.chart > canvas {
+    max-height: 200px;
+}
+
+.devices {
+    margin-top: 20px;
+}
+
+.device {
+    display: grid;
+    grid-template-columns: 50px auto 70px;
+    margin-top: -1px;
+}
+
+.device-avatar {
+    background-image: url(../assets/rc_car.jpg);
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #ccc;
+    border-right: 0;
+}
+
+.device-name {
+    border: 1px solid #ccc;
+    border-left: 0;
+    text-align: center;
+    cursor: pointer;
+    padding: 5px 0;
+    font-size: 15px;
+}
+
+.dim {
+    color: #999;
+}
+
+.device:hover > .device-name {
+    background-color: #333;
+    color: white;
+    border: 1px solid #333;
+    border-left: 0;
+}
+
+.device-state {
+    border: 1px solid #ccc;
+    border-left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-rows: auto auto auto;
+}
+
+input {
+    padding: 5px;
+    outline: 0;
+    width: 90%;
+    width: -webkit-fill-available;
+    border: 1px solid #aeaeae;
+    margin-bottom: 5px;
+}
+
+label {
+    font-size: 13.28px;
+    font-weight: bold;
+    display: block;
+}
+
+.button {
+    margin-top: 10px;
+    display: inline-block;
+    background-color: rgb(56, 99, 7);
+    color: white;
+    font-weight: bold;
+    padding: 5px 30px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: rgb(27, 48, 2);
+}

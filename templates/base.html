@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOT Frontend</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <script src="https://kit.fontawesome.com/54aeb36c60.js" crossorigin="anonymous"></script>
+    <script src="static/js/chart.min.js"></script>
+</head>
+<body>
+    <div class="viewport">
+        <div class="ui">
+            <div class="sidebar">
+                <a href="/" class="title">
+                    <h3>后台管理</h3>
+                </a>
+                <div class="user-info">
+                    <div class="user-info-inner">
+                        <div class="inline-block">
+                            <div class="avatar"><h1>?</h1></div>
+                        </div>
+                        <h4 class="username">
+                            请先
+                            <a href="/login" class="inline-button">登陆</a> 或
+                            <a href="/register" class="inline-button">注册</a>
+                        </h4>
+                    </div>
+                </div>
+                <div class="menu-list">
+                    {% block menu %}
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="content">
+                <div class="heading">
+                    <div class="project-title">
+                        <h3>RFID 轻量级数据过滤和入侵检测仿真系统</h3>
+                    </div>
+                    <div class="toolbar">
+                        <div class="toolbar-button">
+                            <i class="fas fa-inbox"></i>
+                        </div>
+                        <div class="toolbar-button">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="toolbar-button">
+                            <i class="fas fa-user-edit"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="stuffs">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

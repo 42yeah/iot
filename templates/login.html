@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="pane">
+    {% if register %}
+    <h2>注册</h2>
+    {% else %}
+    <h2>登陆</h2>
+    {% endif %}
+    <div class="form-grid">
+        <div class="username">
+            <label for="username">用户名</label>
+            <input id="username">
+        </div>
+        <div class="password">
+            <label for="password">密码</label>
+            <input id="password" type="password">
+        </div>
+        <div class="submit">
+            <div class="button">确定</div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
