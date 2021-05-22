@@ -9,14 +9,14 @@ class Device {
 
 function initializeDevices() {
     let devices = [
-        new Device("热水卡", "static/assets/hot_water.jpeg", {
+        new Device("热水卡", "/static/assets/hot_water.jpeg", {
             "余额": 100
         }),
-        new Device("遥控车", "static/assets/rc_car.jpg", {
+        new Device("遥控车", "/static/assets/rc_car.jpg", {
             "车速": 0,
             "朝向": Math.PI * 0.5
         }),
-        new Device("空调", "static/assets/ac.png", {
+        new Device("空调", "/static/assets/ac.png", {
             "温度": 26
         })
     ];
@@ -51,9 +51,9 @@ function renderDevices() {
         }
         build += `<div class="device">
         <div class="device-avatar" style="background-image: url(${device.avatar})"></div>
-        <div class="device-name">
+        <a href="/devices/${device.name}" class="device-name">
             ${device.name}
-        </div>
+        </a>
         <div class="device-state dim">
             ${state}
         </div>

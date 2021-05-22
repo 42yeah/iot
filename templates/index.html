@@ -1,22 +1,22 @@
 {% extends "base.html" %}
 
 {% block menu %}
-<div class="menu-item active">
+<a href="/" class="menu-item active">
     <i class="fas fa-tachometer-alt"></i>
     控制台
-</div>
+</a>
 <div class="menu-item" onclick="toggleDropdown(this)">
     <i class="fas fa-list"></i>
     设备管理
     <div class="drop-down">
-        <i class="fas fa-sort-down rotate"></i>
+        <i class="fas fa-sort-down rotate right"></i>
     </div>
 </div>
 <div class="folder">
-    <div class="menu-item id1">
+    <a href="/devices" class="menu-item id1">
         <i class="fas fa-question-circle"></i>
         设备详情
-    </div>
+    </a>
     <div class="menu-item id1">
         <i class="fas fa-trash"></i>
         设备删除
@@ -33,8 +33,8 @@
 {% endblock %}
 
 {% block content %}
-<script src="static/js/device.js"></script>
-<script src="static/js/main.js"></script>
+<script src="/static/js/device.js"></script>
+<script src="/static/js/main.js"></script>
 <div class="pane">
     <h5>数据概览</h5>
     <div class="overview-data-view">
@@ -70,4 +70,7 @@
         
     </div>
 </div>
+<script>
+    renderChart("#chart1", ["1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00"]);
+</script>
 {% endblock %}

@@ -12,8 +12,8 @@
         <i class="fas fa-sort-down rotate right"></i>
     </div>
 </div>
-<div class="folder">
-    <a href="/devices" class="menu-item id1">
+<div class="folder opened">
+    <a href="/devices" class="menu-item id1 active">
         <i class="fas fa-question-circle"></i>
         设备详情
     </a>
@@ -33,24 +33,15 @@
 {% endblock %}
 
 {% block content %}
-<div class="pane">
-    {% if register %}
-    <h2>注册</h2>
-    {% else %}
-    <h2>登陆</h2>
-    {% endif %}
-    <div class="form-grid">
-        <div class="username">
-            <label for="username">用户名</label>
-            <input id="username">
-        </div>
-        <div class="password">
-            <label for="password">密码</label>
-            <input id="password" type="password">
-        </div>
-        <div class="submit">
-            <div class="button">确定</div>
-        </div>
+<script src="/static/js/devices.js"></script>
+<script src="/static/js/device.js"></script>
+<div id="device-panes">
+    <div class="pane">
+        <h5>热水卡</h5>
+        
     </div>
 </div>
+<script>
+    render("{{ name }}");
+</script>
 {% endblock %}

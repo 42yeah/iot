@@ -11,3 +11,9 @@ pub struct Index {
 pub struct Login {
     pub register: bool
 }
+
+#[derive(Template)]
+#[template(path = "devices.html")]
+pub struct Devices {
+    pub name: String
+}

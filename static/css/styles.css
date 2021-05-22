@@ -135,6 +135,9 @@ html {
     padding: 10px 20px;
     transition: 0.5s all;
     cursor: pointer;
+    color: white;
+    text-decoration: none;
+    display: block;
 }
 
 .menu-item:hover, .active {
@@ -272,6 +275,8 @@ html {
 }
 
 .device-name {
+    text-decoration: none;
+    color: black;
     border: 1px solid #ccc;
     border-left: 0;
     text-align: center;
@@ -332,4 +337,9 @@ label {
 
 .button:hover {
     background-color: rgb(27, 48, 2);
+}
+
+.warning-pane {
+    border: 1px solid rgb(155, 85, 28);
+    background-color: rgb(255, 242, 215);
 }
