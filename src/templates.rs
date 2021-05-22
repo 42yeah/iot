@@ -17,3 +17,9 @@ pub struct Login {
 pub struct Devices {
     pub name: String
 }
+
+#[derive(Template)]
+#[template(path = "add.html")]
+pub struct AddDevice {
+
+}

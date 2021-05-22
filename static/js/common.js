@@ -24,4 +24,26 @@ function linkCheckboxes() {
     }
 }
 
+function activeMenuItem(list, item) {
+    const children = list.children;
+    for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        if (!child.classList.contains("menu-item")) {
+            continue;
+        }
+        if (child.onclick) {
+            const folder = child.nextElementSibling;
+            if (activeMenuItem(folder, item)) {
+                toggleDropdown(child);
+                return true;
+            }
+        }
+        if (child.innerText.trim() == item) {
+            child.classList.add("active");
+            return true;
+        }
+    }
+    return false;
+}
+
 window.addEventListener("load", linkCheckboxes);

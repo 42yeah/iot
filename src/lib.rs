@@ -5,7 +5,7 @@ use std::path::PathBuf;
 use actix_files::NamedFile;
 use actix_web::{HttpRequest, HttpResponse, get, web};
 use askama::Template;
-use templates::{Devices, Index, Login};
+use templates::{AddDevice, Devices, Index, Login};
 
 #[get("/")]
 async fn index() -> actix_web::Result<HttpResponse> {
@@ -57,10 +57,19 @@ async fn devices(req: HttpRequest) -> actix_web::Result<HttpResponse> {
     ))
 }
 
+#[get("/add_device")]
+async fn add_device() -> actix_web::Result<HttpResponse> {
+    let add_device = AddDevice {};
+    Ok(HttpResponse::Ok().content_type("text/html").body(
+        add_device.render().unwrap()
+    ))
+}
+
 pub fn setup_routes(cfg: &mut web::ServiceConfig) {
     cfg.service(index)
         .service(login)
         .service(register)
         .service(devices)
+        .service(add_device)
         .service(static_files);
 }

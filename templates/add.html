@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="/static/js/device.js"></script>
+<script src="/static/js/add.js"></script>
+<div class="pane">
+    <h5>新增设备</h5>
+    <div class="field">
+        <label for="name">设备名称</label>
+        <input id="name">
+    </div>
+    <div class="field">
+        <label for="avatar">设备图片</label>
+        <input id="avatar">
+    </div>
+    <div class="field">
+        <label for="state">设备状态</label>
+        <input id="state" value="RUNNING">
+    </div>
+    <div class="field">
+        <label>新增设备属性</label>
+        <input id="prop">
+        <a class="button" onclick="addProp()">增加</a>
+    </div>
+    <div class="fields">
+
+    </div>
+    <div class="field">
+        <a class="button" onclick="submit()">提交</a>
+    </div>
+</div>
+<script>
+    activeMenuItem(document.querySelector(".menu-list"), "设备添加");
+</script>
+{% endblock %}

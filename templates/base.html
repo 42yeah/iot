@@ -30,8 +30,39 @@
                     </div>
                 </div>
                 <div class="menu-list">
-                    {% block menu %}
-                    {% endblock %}
+                    <a href="/" class="menu-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        控制台
+                    </a>
+                    <div class="menu-item" onclick="toggleDropdown(this)">
+                        <i class="fas fa-list"></i>
+                        设备管理
+                        <div class="drop-down">
+                            <i class="fas fa-sort-down rotate"></i>
+                        </div>
+                    </div>
+                    <div class="folder">
+                        <a href="/devices" class="menu-item id1">
+                            <i class="fas fa-question-circle"></i>
+                            设备详情
+                        </a>
+                        <div class="menu-item id1">
+                            <i class="fas fa-trash"></i>
+                            设备删除
+                        </div>
+                        <a href="/add_device" class="menu-item id1">
+                            <i class="fas fa-copy"></i>
+                            设备添加
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <i class="fas fa-cog"></i>
+                        选项
+                    </div>
+                    <div class="menu-item">
+                        <i class="fas fa-book"></i>
+                        帮助文档
+                    </div>
                 </div>
             </div>
             <div class="content">

@@ -29,16 +29,8 @@ function render(name) {
         renderDevices();
         return;
     }
-    let props = "";
+    let props = renderProps(device.props);
     let running = device.state == "RUNNING" ? "running" : "";
-    for (prop in device.props) {
-        props += `
-        <div class="field">
-            <label for="${prop}">${prop}</label>
-            <input id="${prop}" value="${device.props[prop]}">
-        </div>
-        `;
-    }
     devicePanes.innerHTML = `
     <div class="pane">
         <h5>${device.name}</h5>

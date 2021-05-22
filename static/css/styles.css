@@ -319,6 +319,15 @@ input {
     margin-bottom: 5px;
 }
 
+select {
+    padding: 5px;
+    outline: 0;
+    width: 90%;
+    width: -webkit-fill-available;
+    border: 1px solid #aeaeae;
+    margin-bottom: 5px;
+}
+
 label {
     font-size: 13.28px;
     font-weight: bold;
@@ -379,6 +388,7 @@ label {
     transform: scaleY(0);
     transition: all 0.3s cubic-bezier(1, 0, 0, 1);
     content: " ";
+    border-radius: 1px;
 }
 
 .checkbox {
