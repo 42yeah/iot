@@ -29,5 +29,36 @@ function render(name) {
         renderDevices();
         return;
     }
-    
+    let props = "";
+    let running = device.state == "RUNNING" ? "running" : "";
+    for (prop in device.props) {
+        props += `
+        <div class="field">
+            <label for="${prop}">${prop}</label>
+            <input id="${prop}" value="${device.props[prop]}">
+        </div>
+        `;
+    }
+    devicePanes.innerHTML = `
+    <div class="pane">
+        <h5>${device.name}</h5>
+        <div class="props">
+            <div class="device-avatar-d">
+                <img src="${device.avatar}">
+            </div>
+            <div class="props-list">
+                <div>
+                    <label for="name">设备名</label>
+                    <input id="name" value="${device.name}">
+                </div>
+                ${props}
+                <div class="field">
+                    <div class="checkbox ${running}">正在运行</div>
+                </div>
+                <div class="submit">
+                    <div class="button">保存</div>
+                </div>
+            </div>
+        </div>
+    </div>`;
 }

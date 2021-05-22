@@ -54,7 +54,7 @@ html {
     user-select: none;
 }
 
-.username {
+.field {
     margin-top: 10px;
 }
 
@@ -342,4 +342,63 @@ label {
 .warning-pane {
     border: 1px solid rgb(155, 85, 28);
     background-color: rgb(255, 242, 215);
+}
+
+.props {
+    display: grid;
+    grid-template-columns: 200px auto;
+    margin-top: 20px;
+}
+
+.props-list {
+    padding: 10px;
+}
+
+.device-avatar-d > img {
+    max-width: 100%;
+    height: auto;
+}
+
+.checkbox::before {
+    position: absolute;
+    left: 0;
+    top: -2px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #777;
+    content: " ";
+}
+
+.checkbox::after {
+    position: absolute;
+    left: 4px;
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: rgba(75, 143, 48, 0.3);
+    transform: scaleY(0);
+    transition: all 0.3s cubic-bezier(1, 0, 0, 1);
+    content: " ";
+}
+
+.checkbox {
+    position: relative;
+    padding-left: 30px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.checkbox.running::after {
+    transform: scale(1);
+    background-color: rgb(75, 143, 48);
+    content: " ";
+}
+
+.checkbox:not(.running):hover::after {
+    background-color: rgba(75, 143, 48, 0.3);
+    transform: scale(1);
+}
+
+.username {
+    margin-top: 10px;
 }
