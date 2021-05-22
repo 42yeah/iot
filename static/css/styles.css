@@ -107,6 +107,8 @@ html {
     border-top: 1px solid #aaaaaaaa;
     border-bottom: 1px solid #aaaaaaaa;
     padding: 5px;
+    color: black;
+    text-decoration: none;
 }
 
 .toolbar-button:first-of-type {    
@@ -289,7 +291,11 @@ html {
     color: #999;
 }
 
-.device:hover > .device-name {
+.device.nohover > .device-name {
+    cursor: default;
+}
+
+.device:not(.nohover):hover > .device-name {
     background-color: #333;
     color: white;
     border: 1px solid #333;
@@ -411,4 +417,21 @@ label {
 
 .username {
     margin-top: 10px;
+}
+
+.device-del {
+    color: rgb(253, 102, 43);
+    border: 1px solid #ccc;
+    border-left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.device-del:hover {
+    background-color: rgb(253, 102, 43);
+    color: white;
 }

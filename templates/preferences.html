@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script>
+    activeMenuItem(document.querySelector(".menu-list"), "选项");
+</script>
+<div class="pane">
+    <h5>你需要先 <a class="inline-button" href="/login">登陆</a> 才能修改偏好选项</h5>
+</div>
+{% endblock %}

@@ -23,3 +23,21 @@ pub struct Devices {
 pub struct AddDevice {
 
 }
+
+#[derive(Template)]
+#[template(path = "delete.html")]
+pub struct DeleteDevice {
+
+}
+
+#[derive(Template)]
+#[template(path = "preferences.html")]
+pub struct Preferences {
+
+}
+
+#[derive(Template)]
+#[template(path = "documentation.html")]
+pub struct Documentation {
+
+}

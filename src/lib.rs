@@ -5,7 +5,7 @@ use std::path::PathBuf;
 use actix_files::NamedFile;
 use actix_web::{HttpRequest, HttpResponse, get, web};
 use askama::Template;
-use templates::{AddDevice, Devices, Index, Login};
+use templates::{AddDevice, DeleteDevice, Devices, Documentation, Index, Login, Preferences};
 
 #[get("/")]
 async fn index() -> actix_web::Result<HttpResponse> {
@@ -65,11 +65,38 @@ async fn add_device() -> actix_web::Result<HttpResponse> {
     ))
 }
 
+#[get("/delete")]
+async fn delete_device() -> actix_web::Result<HttpResponse> {
+    let delete = DeleteDevice {};
+    Ok(HttpResponse::Ok().content_type("text/html").body(
+        delete.render().unwrap()
+    ))
+}
+
+#[get("/preferences")]
+async fn preferences() -> actix_web::Result<HttpResponse> {
+    let preferences = Preferences {};
+    Ok(HttpResponse::Ok().content_type("text/html").body(
+        preferences.render().unwrap()
+    ))
+}
+
+#[get("/documentation")]
+async fn documentation() -> actix_web::Result<HttpResponse> {
+    let documentation = Documentation {};
+    Ok(HttpResponse::Ok().content_type("text/html").body(
+        documentation.render().unwrap()
+    ))
+}
+
 pub fn setup_routes(cfg: &mut web::ServiceConfig) {
     cfg.service(index)
         .service(login)
         .service(register)
         .service(devices)
         .service(add_device)
+        .service(delete_device)
+        .service(preferences)
+        .service(documentation)
         .service(static_files);
 }

@@ -53,7 +53,11 @@ function renderProps(fields) {
                 field = `<select id="${prop.name}">`;
                 let r = prop.range.split(":");
                 for (let i = 0; i < r.length; i++) {
-                    field += `<option value="${r[i]}">${r[i]}</option>`;
+                    let selected = "";
+                    if (r[i] == prop.value) {
+                        selected = "selected";
+                    }
+                    field += `<option ${selected} value="${r[i]}">${r[i]}</option>`;
                 }
                 field += `</select>`;
                 break;

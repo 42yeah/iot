@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="/static/js/device.js"></script>
+<script src="/static/js/delete.js"></script>
+<div class="pane warning-pane">
+    注意：删除后的设备将无法复原！
+</div>
+<div class="pane">
+    <div class="devices" id="devices">
+
+    </div>
+</div>
+<script>
+    activeMenuItem(document.querySelector(".menu-list"), "设备删除");
+</script>
+{% endblock %}
