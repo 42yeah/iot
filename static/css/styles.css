@@ -11,7 +11,6 @@ html {
     display: grid;
     grid-template-columns: 250px auto;
     height: 100vh;
-    overflow: scroll;
 }
 
 .sidebar {
@@ -177,7 +176,6 @@ html {
 }
 
 .content {
-    overflow: scroll;
     background-color: #fafafa;
 }
 
