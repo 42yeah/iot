@@ -24,6 +24,18 @@ function save() {
     window.location = "/devices";
 }
 
+function addEvent() {
+    const eventCmd = document.querySelector("#event-field").value.split(";");
+    let event = {
+        name: eventCmd[0],
+        info: eventCmd[1],
+        date: new Date(eventCmd[2]),
+        state: eventCmd[3]
+    };
+    devices[deviceIndex].events.push(event);
+    localStorage.setItem("devices", JSON.stringify(devices));
+}
+
 function render(name) {
     const devicePanes = document.querySelector("#device-panes");
     let tip = "选择相应设备查看设备详情。 ";
@@ -54,14 +66,31 @@ function render(name) {
     let props = renderProps(device.props);
     let running = device.state == "RUNNING" ? "running" : "";
     let events = "";
+
+    function t(a) {
+        if (a < 10) {
+            return "0" + a;
+        }
+        return a;
+    }
+
+    device.events = device.events.sort((a, b) => {
+        let aDate = new Date(a.date);
+        let bDate = new Date(b.date);
+        return aDate < bDate ? -1 : 1;
+    });
+
     for (let i = 0; i < device.events.length; i++) {
         const event = device.events[i];
-        let anomaly = device.state.contains("异常") ? "anomaly" : "";
+        let date = new Date(event.date);
+        let anomaly = event.state.indexOf("异常") != -1 ? "anomaly" : "";
+        let dateStr = date.getFullYear() + "-" + t(date.getMonth() + 1) + "-" + t(date.getDate()) 
+            + " " + t(date.getHours()) + ":" + t(date.getMinutes()) + ":" + t(date.getSeconds());
         events += `
         <tr>
             <td>${event.name}</td>
             <td>${event.info}</td>
-            <td>${event.date}</td>
+            <td>${dateStr}</td>
             <td class="${anomaly}">${event.state}</td>
         </tr>
         `;
@@ -86,6 +115,12 @@ function render(name) {
                     </tbody>
                 </table>
             </div>
+        </div>`;
+    } else {
+        eventPane = `
+        <div class="pane">
+            <h5>事件</h5>
+            <p class="field">当前设备还未记录事件。</p>
         </div>`;
     }
     devicePanes.innerHTML = `
@@ -112,5 +147,14 @@ function render(name) {
             </div>
         </div>
     </div>
-    ${eventPane}`;
+    ${eventPane}
+    <div class="pane">
+        <h5>添加事件</h5>
+        <div class="field">
+            <input id="event-field">
+        </div>
+        <div>
+            <a class="button" onclick="addEvent()">添加</a>
+        </div>
+    </div>`;
 }
