@@ -145,13 +145,13 @@ function render(name) {
             <h5>事件时序</h5>
             <div class="field">
                 <div class="toolbar">
-                    <div class="toolbar-button">按小时</div>
-                    <div class="toolbar-button">按天</div>
-                    <div class="toolbar-button">按月</div>
+                    <div id="hourly" class="toolbar-button active" onclick="renderSummaryChart('hourly')">按小时</div>
+                    <div id="daily" class="toolbar-button" onclick="renderSummaryChart('daily')">按天</div>
+                    <div id="monthly" class="toolbar-button" onclick="renderSummaryChart('monthly')">按月</div>
                 </div>
             </div>
             <div class="field big-chart">
-                <canvas id="time-sequel"></canvas>
+                <canvas id="summary"></canvas>
             </div>
         </div>`;
     } else {
@@ -243,5 +243,153 @@ function render(name) {
             },
             options: {}
         });
+
+        renderSummaryChart("hourly");
     }
+}
+
+let currentSummaryChart = null;
+
+function renderSummaryChart(mode) {
+    let events = devices[deviceIndex].events;
+
+    events = events.sort((a, b) => {
+        let aDate = new Date(a.date);
+        let bDate = new Date(b.date);
+        return aDate < bDate ? -1 : 1;
+    });
+
+    function t(a) {
+        if (a < 10) {
+            return "0" + a;
+        }
+        return a;
+    }
+
+    function r() {
+        return Math.floor(Math.random() * 255);
+    }
+
+    function zeros(n) {
+        let ret = [];
+        for (let i = 0; i < n; i++) {
+            ret.push(0);
+        }
+        return ret;
+    }
+
+    function getLabel(mode, date) {
+        let label = "";
+        switch (mode) {
+            case "daily":
+                label = date.getFullYear() + "-" + t(date.getMonth() + 1) + "-" + t(date.getDate());
+                break;
+
+            case "monthly":
+                label = date.getFullYear() + "-" + t(date.getMonth() + 1);
+                break;
+
+            case "hourly":
+            default:
+                label = date.getFullYear() + "-" + t(date.getMonth() + 1) + "-" + t(date.getDate())
+                    + " " + t(date.getHours()) + ":00";
+                break;
+        }
+        return label;
+    }
+
+    let labels = [];
+    let eventsHappened = [];
+    for (let i = 0; i < events.length; i++) {
+        const event = events[i];
+        event.date = new Date(event.date);
+        let label = getLabel(mode, event.date);
+        let index = labels.findIndex((x) => {
+            return x == label;
+        });
+        if (index == -1) {
+            labels.push(label);
+            eventsHappened.push(0);
+            index = labels.length - 1;
+        }
+        eventsHappened[index]++;
+    }
+    let datasets = [
+        {
+            type: "line",
+            label: "事件数量",
+            data: eventsHappened,
+            borderColor: "rgba(79, 86, 118, 1)",
+            cubicInterpolationMode: "monotone",
+            tension: 0.4,
+            yAxisID: "y"
+        },
+        {
+            type: "bar",
+            label: "异常数量",
+            data: zeros(labels.length),
+            backgroundColor: ["rgba(253, 102, 43, 0.2)"],
+            yAxisID: "y1"
+        }
+    ];
+    for (let i = 0; i < events.length; i++) {
+        let label = getLabel(mode, events[i].date);
+        let index = labels.findIndex((x) => {
+            return x == label;
+        });
+        let datasetIndex = datasets.findIndex((x) => {
+            return x.label == events[i].name;
+        });
+        if (datasetIndex == -1) {
+            let color = `${r()}, ${r()}, ${r()}`;
+            datasets.push({
+                type: "line",
+                label: events[i].name,
+                data: zeros(labels.length),
+                borderColor: `rgba(${color}, 1)`,
+                backgroundColor: `rgba(${color}, 0.2)`,
+                cubicInterpolationMode: "monotone",
+                tension: 0.4,
+                fill: true,
+                yAxisID: "y"
+            });
+            datasetIndex = datasets.length - 1;
+        }
+        datasets[datasetIndex].data[index]++;
+        if (events[i].state.indexOf("异常") != -1) {
+            datasets[1].data[index]++;
+        }
+    }
+
+    if (currentSummaryChart != null) {
+        currentSummaryChart.destroy();
+    }
+
+    currentSummaryChart = new Chart(document.querySelector("#summary").getContext("2d"), {
+        data: {
+            labels,
+            datasets
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    display: true
+                },
+                y: {
+                    display: true,
+                    position: "left"
+                },
+                y1: {
+                    display: true,
+                    position: "right"
+                }
+            }
+        }
+    });
+
+    document.querySelector("#hourly").classList.remove("active");
+    document.querySelector("#daily").classList.remove("active");
+    document.querySelector("#monthly").classList.remove("active");
+    document.querySelector("#" + mode).classList.add("active");
 }
