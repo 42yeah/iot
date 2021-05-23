@@ -38,6 +38,25 @@ function main() {
     renderChart("#chart1", ["1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00"]);
     renderDevices();
     activeMenuItem(document.querySelector(".menu-list"), "控制台");
+
+    let devices = JSON.parse(localStorage.getItem("devices"));
+    if (!devices) {
+        devices = initializeDevices();
+    }
+    let onlines = 0;
+    let anomalies = 0;
+    for (let i = 0; i < devices.length; i++) {
+        if (devices[i].state == "RUNNING") {
+            onlines++;
+        }
+        for (let j = 0; j < devices[i].events.length; j++) {
+            if (devices[i].events[j].state.indexOf("异常") != -1) {
+                anomalies++;
+            }
+        }
+    }
+    document.querySelector("#onlines").innerHTML = onlines;
+    document.querySelector("#anomalies").innerHTML = anomalies;
 }
 
 window.addEventListener("load", main);
