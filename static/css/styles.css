@@ -108,6 +108,7 @@ html {
     padding: 5px;
     color: black;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .toolbar-button:first-of-type {    
@@ -128,7 +129,7 @@ html {
     border-left: 0;
 }
 
-.toolbar-button:hover {
+.toolbar-button:hover, .toolbar-button.active {
     background-color: #aaaaaa55;
 }
 
@@ -141,7 +142,7 @@ html {
     display: block;
 }
 
-.menu-item:hover, .active {
+.menu-item:hover, .menu-item.active {
     background-color: rgb(43, 148, 253);
 }
 
@@ -255,6 +256,15 @@ html {
 
 .chart > canvas {
     max-height: 200px;
+}
+
+.charts {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.charts > .chart {
+    width: 50%;
 }
 
 .devices {

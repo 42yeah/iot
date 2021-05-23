@@ -66,6 +66,8 @@ function render(name) {
     let props = renderProps(device.props);
     let running = device.state == "RUNNING" ? "running" : "";
     let events = "";
+    let eventCount = {};
+    let anomalies = 0;
 
     function t(a) {
         if (a < 10) {
@@ -82,8 +84,16 @@ function render(name) {
 
     for (let i = 0; i < device.events.length; i++) {
         const event = device.events[i];
+        if (!(event.name in eventCount)) {
+            eventCount[event.name] = 1;
+        } else {
+            eventCount[event.name]++;
+        }
         let date = new Date(event.date);
         let anomaly = event.state.indexOf("异常") != -1 ? "anomaly" : "";
+        if (anomaly == "anomaly") {
+            anomalies++;
+        }
         let dateStr = date.getFullYear() + "-" + t(date.getMonth() + 1) + "-" + t(date.getDate()) 
             + " " + t(date.getHours()) + ":" + t(date.getMinutes()) + ":" + t(date.getSeconds());
         events += `
@@ -96,14 +106,20 @@ function render(name) {
         `;
     }
     let eventPane = "";
+    let renderCharts = false;
     if (device.events.length > 0) {
+        renderCharts = true;
         eventPane = `
         <div class="pane">
-            <h5>参数图表</h5>
+            <h5>事件统计</h5>
             <div class="field">
-                <label for="events-chart">事件统计</label>
-                <div class="field chart">
-                    <canvas id="events-chart"></canvas>
+                <div class="field charts">
+                    <div class="chart">
+                        <canvas id="events-chart"></canvas>
+                    </div>
+                    <div class="chart">
+                        <canvas id="anomaly-chart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -123,6 +139,19 @@ function render(name) {
                         ${events}
                     </tbody>
                 </table>
+            </div>
+        </div>
+        <div class="pane">
+            <h5>事件时序</h5>
+            <div class="field">
+                <div class="toolbar">
+                    <div class="toolbar-button">按小时</div>
+                    <div class="toolbar-button">按天</div>
+                    <div class="toolbar-button">按月</div>
+                </div>
+            </div>
+            <div class="field big-chart">
+                <canvas id="time-sequel"></canvas>
             </div>
         </div>`;
     } else {
@@ -166,4 +195,53 @@ function render(name) {
             <a class="button" onclick="addEvent()">添加</a>
         </div>
     </div>`;
+
+    if (renderCharts) {
+        // Render charts
+        new Chart(document.querySelector("#events-chart").getContext("2d"), {
+            type: "bar",
+            data: {
+                labels: Object.keys(eventCount),
+                datasets: [{
+                    label: '事件频率',
+                    data: Object.values(eventCount),
+                    backgroundColor: [
+                        'rgba(45, 120, 99, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(45, 120, 99, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        new Chart(document.querySelector("#anomaly-chart").getContext("2d"), {
+            type: "pie",
+            data: {
+                labels: ["正常", "异常"],
+                datasets: [{
+                    label: '正常/异常',
+                    data: [device.events.length, anomalies],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 120, 99, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 120, 99, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {}
+        });
+    }
 }
