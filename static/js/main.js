@@ -8,7 +8,7 @@ function randomArray(len) {
 
 function renderChart(query, tags) {
     const ctx = document.querySelector(query).getContext("2d");
-    let myChart = new Chart(ctx, {
+    new Chart(ctx, {
         type: "line",
         data: {
             labels: tags,

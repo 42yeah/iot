@@ -100,7 +100,12 @@ function render(name) {
         eventPane = `
         <div class="pane">
             <h5>参数图表</h5>
-            
+            <div class="field">
+                <label for="events-chart">事件统计</label>
+                <div class="field chart">
+                    <canvas id="events-chart"></canvas>
+                </div>
+            </div>
         </div>
         <div class="pane">
             <h5>事件</h5>
