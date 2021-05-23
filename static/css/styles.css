@@ -177,6 +177,7 @@ html {
 
 .content {
     background-color: #fafafa;
+    overflow-y: scroll;
 }
 
 .pane {
@@ -436,7 +437,7 @@ label {
 
 .table-holder {
     max-width: 100%;
-    overflow: scroll;
+    overflow-x: scroll;
 }
 
 .event-table {

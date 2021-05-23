@@ -99,6 +99,10 @@ function render(name) {
     if (device.events.length > 0) {
         eventPane = `
         <div class="pane">
+            <h5>参数图表</h5>
+            
+        </div>
+        <div class="pane">
             <h5>事件</h5>
             <div class="table-holder">
                 <table cellspacing="0" class="event-table" id="event-table">
