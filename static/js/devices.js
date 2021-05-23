@@ -53,6 +53,41 @@ function render(name) {
     const device = devices[deviceIndex];
     let props = renderProps(device.props);
     let running = device.state == "RUNNING" ? "running" : "";
+    let events = "";
+    for (let i = 0; i < device.events.length; i++) {
+        const event = device.events[i];
+        let anomaly = device.state.contains("异常") ? "anomaly" : "";
+        events += `
+        <tr>
+            <td>${event.name}</td>
+            <td>${event.info}</td>
+            <td>${event.date}</td>
+            <td class="${anomaly}">${event.state}</td>
+        </tr>
+        `;
+    }
+    let eventPane = "";
+    if (device.events.length > 0) {
+        eventPane = `
+        <div class="pane">
+            <h5>事件</h5>
+            <div class="table-holder">
+                <table cellspacing="0" class="event-table" id="event-table">
+                    <thead>
+                        <tr>
+                            <th>类别</th>
+                            <th>详情</th>
+                            <th>时间</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${events}
+                    </tbody>
+                </table>
+            </div>
+        </div>`;
+    }
     devicePanes.innerHTML = `
     <div class="pane">
         <h5>${device.name}</h5>
@@ -76,5 +111,6 @@ function render(name) {
                 </div>
             </div>
         </div>
-    </div>`;
+    </div>
+    ${eventPane}`;
 }
